@@ -6,4 +6,6 @@
     <string name="food">Food</string>
     <string name="gift">Gifts</string>
     <string name="drink">Drinks</string>
+    <string name="favorite">favorite</string>
+    <string name="card">card</string>
 </resources>

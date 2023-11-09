@@ -7,16 +7,24 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
-class MyRepository @Inject constructor(
+class StoreRepository @Inject constructor(
     private  val categoryDao: CategoryDao,
     private val itemDao: ItemDao
 ) {
 
     val category : Flow<List<CategoryEntity>> = categoryDao.getCategory()
 
+    val favoriteItems : Flow<List<FavoriteItemEntity>> = categoryDao.getALlFavoriteItem()
+
     fun getItemForCategory(categoryId : Int) : Flow<List<ItemEntity>> {
         return  itemDao.getItemForCategory(categoryId)
     }
+
+    fun insertFavoriteItem(item : FavoriteItemEntity){
+        categoryDao.insertFavoriteItem(item)
+    }
+
+
 
     suspend fun initializeDataFromJson(jsonString : String){
 

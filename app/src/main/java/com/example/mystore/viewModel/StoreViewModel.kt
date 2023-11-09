@@ -3,9 +3,10 @@ package com.example.mystore.viewModel
 import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.mystore.model.repositories.MyRepository
+import com.example.mystore.model.repositories.StoreRepository
 import com.example.tummoc_project.model.local.Category
 import com.example.tummoc_project.model.local.CategoryEntity
+import com.example.tummoc_project.model.local.FavoriteItemEntity
 import com.example.tummoc_project.model.local.Item
 import com.example.tummoc_project.model.local.ItemEntity
 import com.google.gson.Gson
@@ -15,8 +16,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val repository: MyRepository
+class StoreViewModel @Inject constructor(
+    private val repository: StoreRepository
     ) : ViewModel() {
     val categories: Flow<List<CategoryEntity>> = repository.category
 
@@ -24,23 +25,9 @@ class MainViewModel @Inject constructor(
         return repository.getItemForCategory(categoryId)
     }
 
-//    fun initializeDataFromJson(resources : Resources){
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val assetsManager = resources.assets
-//                val jsonFile = "storeData.json"
-//                val inputStream =assetsManager.open(jsonFile)
-//                val jsonString = inputStream.bufferedReader().use { it.readText() }
-//                repository.initializeDataFromJson(jsonString)
-//                Log.d("abhi", "JSON data is going to initialize: $jsonString")
-//            }
-//            catch (e: Exception){
-//                Log.e("abhi", "Error loading JSON data from assets", e)
-//
-//            }
-//        }
-//    }
-
+    fun insertFavoriteItem(item : FavoriteItemEntity){
+        repository.insertFavoriteItem(item)
+    }
     fun getDataFromJsonFile(resources : Resources) : List<Category>{
         try {
             val assetsManager = resources.assets

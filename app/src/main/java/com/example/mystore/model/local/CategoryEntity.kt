@@ -19,3 +19,11 @@ data class ItemEntity(
     val icon: String,
     val price: Double
 )
+
+@Entity(tableName = "favorite_item_table")
+data class FavoriteItemEntity(
+    val name: String,
+    val imageResource: Int, // Resource ID of the item's image
+    val price: Double,
+    val unit : Int // Indicates the item quantity
+)

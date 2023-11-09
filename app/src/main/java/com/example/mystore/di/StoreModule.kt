@@ -5,8 +5,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.mystore.model.local.StoreDatabase
-import com.example.mystore.model.repositories.MyRepository
-import com.example.mystore.viewModel.MainViewModel
+import com.example.mystore.model.repositories.StoreRepository
+import com.example.mystore.viewModel.FavoriteViewModel
+import com.example.mystore.viewModel.StoreViewModel
 import com.example.tummoc_project.model.local.CategoryDao
 import com.example.tummoc_project.model.local.ItemDao
 import dagger.Module
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MyModule {
+object StoreModule {
 
     @Provides
     @Singleton
@@ -44,8 +45,8 @@ object MyModule {
     fun provideMyRepository(
         categoryDao: CategoryDao,
         itemDao: ItemDao
-    ) : MyRepository{
-        return MyRepository(categoryDao,itemDao)
+    ) : StoreRepository{
+        return StoreRepository(categoryDao,itemDao)
     }
 
     @Provides
@@ -57,8 +58,16 @@ object MyModule {
     @Provides
     @Singleton
     fun provideViewModel(
-        repository: MyRepository
-    ): MainViewModel{
-        return  MainViewModel(repository)
+        repository: StoreRepository
+    ): StoreViewModel{
+        return  StoreViewModel(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteItemViewModel(
+        repository: StoreRepository
+    ) : FavoriteViewModel{
+        return FavoriteViewModel(repository)
     }
 }
